@@ -1,6 +1,6 @@
 
 -- -----------------------------------------------------
--- Schema pw
+-- Schema AulaTec
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `pw` DEFAULT CHARACTER SET utf8 ;
 USE `pw` ;
