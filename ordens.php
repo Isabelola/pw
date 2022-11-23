@@ -27,7 +27,24 @@
                 </tr>
             </thead>
             <tbody>
-               
+            <?php
+                spl_autoload_register(function ($class) {
+                    require_once "./Classes/{$class}.class.php";
+                });
+
+                $ordem = new Ordem();
+                foreach($ordem->OrdemCliente() as $key => $row) {
+                ?>
+                    <tr>
+                        <td><?php echo $row->idOS ?></td>
+                        <td><?php echo $row->nomeCliente ?></td>
+                        <td><?php echo $row->dataOS ?></td>
+                        <td><?php echo $row->totalOS ?></td>
+                        <td></td>
+                    </tr>
+                    <?php
+                }
+                    ?>
             </tbody>
         </table>
         <a href="GerOrdem.php" class="btn btn-success btn-lg">

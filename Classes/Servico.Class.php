@@ -10,57 +10,58 @@ class Servico extends Crud{
     #metodos set's
 
     public function setId($id){
-        $this->id = $id;
+        $this->idServico = $id;
     }
 
-    public function setNome($nome){
-        $this->nome = $nome;
+    public function setNome($nomeServico){
+        $this->nomeServico = $nomeServico;
     }
 
-    public function setDescricao($descricao){
-        $this->descricao = $descricao;
+    public function setDescricao($descricaoServico){
+        $this->descricaoServico = $descricaoServico;
     }
     
-    public function setPreco($preco){
-        $this->preco = $preco;
+    public function setPreco($precoServico){
+        $this->precoServico = $precoServico;
     }
 
     #métodos Gets
     public function getId(){
-        return $this->id;
+        return $this->idServico;
     }
 
     public function getNome(){
-        return $this->nome;
+        return $this->nomeServico;
     }
 
     public function getDescricao(){
-        return $this->descricao;
+        return $this->descricaoServico;
     }
 
     public function getPreco(){
-        return $this->preco;
+        return $this->precoServico;
     }
 
-    #Implementando a Função Abstrata
+    #Implementando a Função Abastrata
 
     public function inserir(){
-        $sqlInserir = "INSERT INTO $this->tabela (nomeServico, descricaoServico, precoServico) VALUES (:nome, :descricao, :preco)";
-        $stmt= Conexao::prepare($sqlInserir);
-        $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
-        $stmt->bindParam(':descricao', $this->descricao, PDO::PARAM_STR);
-        $stmt->bindParam(':preco', $this->preco, PDO::PARAM_STR);
+        $sqlInserir = "INSERT INTO $this->tabela (nomeServico, descricaoServico,precoServico) VALUES (:nome,:descricao,:preco)";
+        $stmt = Conexao::prepare($sqlInserir);
+        $stmt->bindParam(':nome',$this->nomeServico,PDO::PARAM_STR);
+        $stmt->bindParam(':descricao',$this->descricaoServico,PDO::PARAM_STR);
+        $stmt->bindParam(':preco',$this->precoServico,PDO::PARAM_STR);
         $stmt->execute();
     }
 
     public function atualizar($campo,$id)
     {
-        $sqlAtualizar = "UPDATE $this->tabela SET nomeServico = :nome, descricaoServico = :descricao, precoServico = :preco where $campo=:idAtt" ;
-        $stmt= Conexao::prepare($sqlAtualizar);
-        $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
-        $stmt->bindParam(':descricao', $this->descricao, PDO::PARAM_STR);
-        $stmt->bindParam(':preco', $this->preco, PDO::PARAM_STR);
-        $stmt->bindParam(':idAtt', $id, PDO::PARAM_STR);
+
+        $sqlAtualizar = "UPDATE $this->tabela SET nomeServico = :nome, descricaoServico = :descricao, precoServico = :preco where $campo=:id" ;
+        $stmt = Conexao::prepare($sqlAtualizar);
+        $stmt->bindParam(':nome',$this->nomeServico,PDO::PARAM_STR);
+        $stmt->bindParam(':descricao',$this->descricaoServico,PDO::PARAM_STR);
+        $stmt->bindParam(':preco',$this->precoServico,PDO::PARAM_STR);
+        $stmt->bindParam(':id',$id,PDO::PARAM_INT);
         $stmt->execute();
     }
 }

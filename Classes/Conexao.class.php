@@ -4,7 +4,7 @@ final class Conexao{
     private function __construct(){
 
     }
-    private static function conectar()
+    public static function conectar()
     {
         if(!(defined('db_user'))){
             define('db_user', 'root');
@@ -16,24 +16,22 @@ final class Conexao{
             define('db_pass', 'aniversario01');
         }
         if(!defined('db_name')){
-            define('db_name', 'AulaTec');
+            define('db_name', 'pw');
         }
         if(!defined('db_port')){
             define('db_port', 3306);
         }
         try{
-            $conn = new PDO('mysql:host='. db_host . '; port=' . 
-            db_port . '; dbname=' . db_name, db_user, db_pass, array
-            (PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8'));
+            $conn = new PDO('mysql:host='.db_host.'; port='.db_port.'; dbname='.db_name, db_user, db_pass, array(PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES utf8"));
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
+        }catch (PDOException $e){
+            echo 'Erro ao conectar, erro: '.$e->getMessage();
         }
-        catch(PDOException $e){
-            echo ("Erro ao conectar com o Banco. Erro: " . $e->getMessage());
-        }
-
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-        return $conn;
+        
+        return $conn; 
     }
+
     public static function prepare($sql){
         return self::conectar()->prepare($sql);
     }

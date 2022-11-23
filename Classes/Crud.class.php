@@ -12,28 +12,28 @@
         }
 
         public function buscar($campo, $id){
-            $sqlSelect = "select * from {$this->tabela} where 
-            $campo=:parametro";
+            $sqlSelect = "select * from {$this->tabela} where $campo=:parametro";
             $stmt = Conexao::prepare($sqlSelect);
-            $stmt->bindParam(':parametro', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':parametro',$id,PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetch();
+            return $stmt->fetch();           
         }
 
         public function deletar($campo, $id){
-            $sqlDelete = "delete from {$this->tabela} where $campo=:idDel";
-            $stmt = Conexao::prepare($sqlDelete);
-            $stmt->bindParam(':idDel', $id, PDO::PARAM_INT);
+            $sqlSelect = "delete from {$this->tabela} where $campo=:delPar";
+            $stmt = Conexao::prepare($sqlSelect);
+            $stmt->bindParam(':delPar',$id,PDO::PARAM_INT);
             $stmt->execute();
         }
 
-        public function listaOrdenada($campo, $tipo = 'C'){
-            $sqlLista = "Select * from {$this->tabela} order by $campo";
-            $stmt = Conexao::prepare($sqlLista);
-            $stmt->execute();
-            if ($tipo === 'D' ){
-                $sqlLista .= ' desc';
+        public function listaOrdenada($campo, $par = 'C'){
+            $sqlSelect = "select * from {$this->tabela} ORDER BY :campo";
+            if($par ==='D'){
+                $sqlSelect .= ' desc';
             }
+            $stmt = Conexao::prepare($sqlSelect);
+            $stmt->bindParam(':campo',$campo,PDO::PARAM_STR);
+            $stmt->execute();
             return $stmt->fetchAll();
         }
     }

@@ -37,21 +37,20 @@ class User extends Crud
     #Implementando a Função Abastrata
 
     public function inserir(){
-        $sqlInserir = "INSERT INTO $this->tabela (loginUsuario, senhaUsuario) VALUES (:login, :senha)";
-        $stmt= Conexao::prepare($sqlInserir);
-        $stmt->bindParam(':login', $this->usuario, PDO::PARAM_STR);
-        $stmt->bindParam(':senha', $this->senha, PDO::PARAM_STR);
+        $sqlInserir = "INSERT INTO $this->tabela (loginUsuario, senhaUsuario) VALUES (:login,:senha)";
+        $stmt = Conexao::prepare($sqlInserir);
+        $stmt->bindParam(':login',$this->usuario,PDO::PARAM_STR);
+        $stmt->bindParam(':senha',$this->senha,PDO::PARAM_STR);
         $stmt->execute();
     }
 
     public function atualizar($campo,$id)
     {
-        $sqlAtualizar = "UPDATE $this->tabela SET loginUsuario = :login, senhaUsuario = :senha where $campo=:idAtt" ;
-        $stmt= Conexao::prepare($sqlAtualizar);
-        $stmt->bindParam(':login', $this->usuario, PDO::PARAM_STR);
-        $stmt->bindParam(':senha', $this->senha, PDO::PARAM_STR);
-        $stmt->bindParam(':idAtt', $id, PDO::PARAM_STR);
-        $stmt->execute();
+        $sqlAtualizar = "UPDATE $this->tabela SET loginUsuario = :login, senhaUsuario = :senha where $campo=:id" ;
+        $stmt = Conexao::prepare($sqlAtualizar);
+        $stmt->bindParam(':login',$this->usuario,PDO::PARAM_STR);
+        $stmt->bindParam(':senha',$this->senha,PDO::PARAM_STR);
+        $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+        $stmt->execute();        
     }
 }
-

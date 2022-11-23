@@ -21,14 +21,13 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="teste">
                 <?php
                 spl_autoload_register(function ($class) {
                     require_once "./Classes/{$class}.class.php";
                 });
-
                 $usuario = new User();
-                foreach($usuario->listar() as $key => $row) {
+                foreach($usuario->listar() as $key => $row){
                 ?>
                     <tr>
                         <td class="text-center"><?php echo $row->idUsuario; ?></td>
